@@ -1,0 +1,152 @@
+; -------------------------------------------
+; KiddieOS - Monitor Library Rotines
+; Create by Carlos
+; Version 1.0.0
+; -------------------------------------------
+
+%IFNDEF __MONITOR_LIB__
+%DEFINE __MONITOR_LIB__
+
+; Main Strings_______________________________
+; ___________________________________________
+
+NameSystem db "KiddieOS",0
+
+; ___________________________________________
+
+
+
+; Monitor & Window Condigurations____________
+; ___________________________________________
+
+
+Count        dw 0000h
+BackWidth    dw 0000h
+BackHeight   dw 0000h
+BackColor    db 46
+Pagination   db 0
+CursorX      db 15
+CursoeY      db 12
+State        db 0
+
+
+; ___________________________________________
+
+
+; Rotine librarry____________________________
+; ___________________________________________
+
+; Definir o modo de video e configura opção padrão
+VGA.SetVideoMode:
+	mov ah, 00h
+	mov al, 13h
+	int 10h
+	mov ax, 320
+	mov WORD[BackWidth], ax
+	mov ax, 200
+	mov WORD[BackHeight], ax
+	call DrawPixelConfig
+ret
+
+; Função de gravar pixel na tela
+DrawPixelConfig:
+	mov ah, 0Ch
+	mov al, [BackColor]
+	mov cx, 0
+	mov dx, 0
+ret
+
+; Pintar o fundo da tela
+DrawBackground:
+	int 10h
+	inc cx
+	cmp cx, WORD[BackWidth]
+	jne DrawBackground
+	mov cx, 0
+	inc dx
+	cmp dx, WORD[BackHeight]
+	jne DrawBackground
+	mov dx, 0
+ret
+
+PrintString:
+	mov ah, 09h
+	mov bh, [Pagination]
+	mov cx, 1
+	mov al, [si]
+	print:
+		int 10h
+		inc si
+		call MoveCursor
+		mov ah, 09h
+		mov al, [si]
+		cmp al, 0
+		jne print
+ret
+
+MoveCursor:
+	mov ah, 02h
+	mov bh, [Pagination]
+	inc dl
+	int 10h
+ret	
+
+EffectInit:
+	mov bl, 44 
+	start:
+		mov dh, [CursoeY]
+		mov dl, [CursorX]
+		call MoveCursor
+		mov si, NameSystem
+		call PrintString
+		pusha 
+		mov bl, [State]
+		cmp bl, 0
+		je Incremente
+		jmp Decremente
+	Incremente:
+		popa
+		inc bl
+		call Waiting
+		cmp bl, 50
+		jne start
+		pusha
+		mov bl, 1
+		mov byte[State], bl
+		popa
+		jmp start
+	Decremente:
+		popa
+		dec bl
+		call Waiting
+		cmp bl, 44
+		jne start
+		pusha
+		mov bl, 0
+		mov byte[State], bl
+		mov bx, [Count]
+		inc bx
+		mov WORD[Count], bx
+		cmp bx, 10
+		jne ReturnLoop
+		jmp ReturnProg
+	ReturnLoop:
+		popa
+		jmp start
+	ReturnProg:
+		popa
+		ret
+ret
+
+Waiting:
+	pusha
+	mov ah, 86h
+	mov cx, 0002h 	;150 milisegundo(150.000) 
+	mov dx, 49F0h
+	int 15h
+	popa
+ret
+
+; ___________________________________________
+
+%ENDIF
