@@ -6,9 +6,10 @@ jmp OSMain
 ; ___________________________________________
 ;Directives and inclusions___________________
 
-%INCLUDE "Hardware/wmemory.lib"
 %INCLUDE "Hardware/monitor.lib"
 %INCLUDE "Hardware/disk.lib"
+%INCLUDE "Hardware/wmemory.lib"
+%INCLUDE "Hardware/win16.lib"
 
 ; ___________________________________________
 
@@ -32,29 +33,18 @@ OSMain:
 ; Kernel Functions___________________________
 
 GraficInterface:
-	mov byte[Window_Bar], 1
-	mov word[Window_PositionX], 5
-	mov word[Window_PositionY], 5
-	mov word[Window_Width], 100
-	mov word[Window_Height], 150
-	mov byte[Window_Border_Color], 21
-	mov byte[Window_Bar_Color], 16
-	mov byte[Window_back_Color], 55
-	mov byte[Sector], 3
-	mov byte[Drive], 80h
-	mov byte[NumSectors], 1
-	mov word[SegmentAddr], 0800h
-	mov word[OffsetAddr],  0500h
-	call ReadDisk
-	call WindowAddres
-	mov byte[Window_Bar], 0
-	mov word[Window_PositionX], 110
-	mov word[Window_PositionY], 5
-	mov word[Window_Width], 50
-	mov word[Window_Height], 50
-	mov byte[Window_Border_Color], 30
-	mov byte[Window_back_Color], 60
-	call WindowAddres
+	__LoadInterface 
+	
+	__CreateWindow 1,1,1,1,16,28,53,5,10,200,150
+	__ShowWindow 1
+	__CreateField Text1, 0, 55, 30, 55, 60, 100, 8
+	__ShowField 1
+	__CreateField Text2, 0, 55, 30, 55, 72, 100, 8
+	__ShowField 1
+	__CreateField Text3, 0, 55, 30, 55, 84, 100, 8
+	__ShowField 1
+	__CreateButton Button1, "Entrar", 55, 55, 90, 98, 25, 8
+	__ShowButton 1
 ret
 
 ConfigSegment:
