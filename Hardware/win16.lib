@@ -1,0 +1,98 @@
+; -------------------------------------------
+; KiddieOS - Macros Interface Library 
+; Create by Carlos
+; Version 1.0.0
+; -------------------------------------------
+
+%IFNDEF _WIN16_LIB
+%DEFINE _WIN16_LIB
+
+%DEFINE WIN_SEGMENT 0x800
+%DEFINE WIN_OFFSET 	0x500
+%DEFINE WIN_SECTOR  4
+
+; Caregar o window.bin na memória____________
+; ___________________________________________
+
+%MACRO __LoadInterface 0
+	mov byte[Sector], WIN_SECTOR
+	mov byte[Drive], 80h
+	mov byte[NumSectors], 2
+	mov word[SegmentAddr], WIN_SEGMENT
+	mov word[OffsetAddr],  WIN_OFFSET
+	call ReadDisk
+
+%ENDMACRO
+; ___________________________________________
+
+; Constrção de janelas
+; ___________________________________________
+%MACRO __CreateWindow 11
+	mov byte[Window_Bar], %1
+	mov byte[ButonClose], %2
+	mov byte[ButonMaximize], %3
+	mov byte[ButonMinimize], %4
+	mov byte[Window_Bar_Color], %5
+	mov byte[Window_Border_Color], %6
+	mov byte[Window_back_Color], %7
+	mov word[Window_PositionX], %8
+	mov word[Window_PositionY], %9
+	mov word[Window_Width], %10
+	mov word[Window_Height], %11
+%ENDMACRO
+
+%MACRO __ShowWindow 1
+	mov byte[Window_Exist], %1
+	call WindowAddres
+	mov byte[Window_Border], 0
+%ENDMACRO
+; ___________________________________________
+
+; Definição de bordar individuais____________
+; ___________________________________________
+
+%MACRO __CreateBorder 4
+	mov byte[Window_Border], 1
+	mov byte[Window_Border_Up], %1
+	mov byte[Window_Border_Right], %2
+	mov byte[Window_Border_Down], %3
+	mov byte[Window_Border_Left], %4
+%ENDMACRO
+; ___________________________________________
+
+
+; Construção de campos de textos_____________
+; ___________________________________________
+%Macro __CreateField 8
+	__CreateWindow 0,0,0,0,0,%3,%4,%5,%6,%7,%8
+	jmp JmpValue%1
+	%1 db %2
+JmpValue%1:
+	
+%ENDMACRO
+
+%MACRO  __ShowField 1
+	mov byte[Field_Exist], %1
+	call WindowAddres
+	mov byte[Window_Border], 0
+%ENDMACRO
+; ___________________________________________
+
+; Construção de Botões
+; ___________________________________________
+%Macro __CreateButton 8
+	__CreateWindow 0,0,0,0,0,%3,%4,%5,%6,%7,%8
+	jmp JmpValue%1
+	%1 db %2
+JmpValue%1:
+	
+%ENDMACRO
+
+%MACRO  __ShowButton 1
+	mov byte[Button_Exist], %1
+	call WindowAddres
+	mov byte[Window_Border], 0
+%ENDMACRO
+; ___________________________________________
+
+%ENDIF
