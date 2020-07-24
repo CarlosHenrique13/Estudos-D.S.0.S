@@ -141,8 +141,8 @@ ret
 Waiting:
 	pusha
 	mov ah, 86h
-	mov cx, 0002h 	;150 milisegundo(150.000) 
-	mov dx, 49F0h
+	mov cx, 0000h 	;150 milisegundo(150.000)  cx = 0002h, dx = 49F0h
+	mov dx, 0000h
 	int 15h
 	popa
 ret

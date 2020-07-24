@@ -6,7 +6,7 @@ jmp 0800h:0000h
 
 LoadSystem:
 	mov ah, 02h
-	mov al, 2
+	mov al, 6
 	mov ch, 0
 	mov cl, 2
 	mov dh, 0 

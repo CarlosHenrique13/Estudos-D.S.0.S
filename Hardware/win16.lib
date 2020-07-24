@@ -8,8 +8,8 @@
 %DEFINE _WIN16_LIB
 
 %DEFINE WIN_SEGMENT 0x800
-%DEFINE WIN_OFFSET 	0x500
-%DEFINE WIN_SECTOR  4
+%DEFINE WIN_OFFSET 	0D00h
+%DEFINE WIN_SECTOR  8
 
 ; Caregar o window.bin na memória____________
 ; ___________________________________________

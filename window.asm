@@ -1,5 +1,5 @@
 [BITS 16]
-[ORG 0500h]
+[ORG 0D00h]
 
 
 

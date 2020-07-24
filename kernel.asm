@@ -10,6 +10,7 @@ jmp OSMain
 %INCLUDE "Hardware/disk.lib"
 %INCLUDE "Hardware/wmemory.lib"
 %INCLUDE "Hardware/win16.lib"
+%INCLUDE "Hardware/win3dmov.lib"
 
 ; ___________________________________________
 
@@ -23,9 +24,8 @@ OSMain:
 	call VGA.SetVideoMode
 	call DrawBackground
 	call EffectInit
-	call GraficInterface
+	jmp GraficInterface
 	jmp END
-
 
 ; ___________________________________________
 
@@ -34,18 +34,12 @@ OSMain:
 
 GraficInterface:
 	__LoadInterface 
+
+	WallPaper WALL, SCREEN_WIDTH, SCREEN_HEIGHT, 40, 20
+	Window3D MOVABLE, 8, 8, 100, 100
 	
-	__CreateWindow 1,1,1,1,16,28,53,5,10,200,150
-	__ShowWindow 1
-	__CreateField Text1, 0, 55, 30, 55, 60, 100, 8
-	__ShowField 1
-	__CreateField Text2, 0, 55, 30, 55, 72, 100, 8
-	__ShowField 1
-	__CreateField Text3, 0, 55, 30, 55, 84, 100, 8
-	__ShowField 1
-	__CreateButton Button1, "Entrar", 55, 55, 90, 98, 25, 8
-	__ShowButton 1
-ret
+	
+jmp END
 
 ConfigSegment:
 	mov ax, es

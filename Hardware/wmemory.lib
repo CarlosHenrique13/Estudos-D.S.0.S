@@ -12,7 +12,7 @@
 ; Memory Windows Configurations______________
 ; ___________________________________________
 
-%DEFINE WindowAddres  0800h:0500h
+%DEFINE WindowAddres  0800h:0D00h
 
 
 %DEFINE Window_Bar    		 3000h
