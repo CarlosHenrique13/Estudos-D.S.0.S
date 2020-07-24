@@ -34,9 +34,21 @@ OSMain:
 
 GraficInterface:
 	__LoadInterface 
-
-	WallPaper WALL, SCREEN_WIDTH, SCREEN_HEIGHT, 40, 20
-	Window3D MOVABLE, 8, 8, 100, 100
+	
+	mov word[PositionX], 8
+	mov word[PositionY], 8
+	mov word[W_Width], 100
+	mov word[W_Height], 100
+	
+	ChangeToWall:
+		mov cx, _WALL
+		jmp Start
+	ChangeToIron:
+		mov cx, _IRON
+		
+Start:
+	WallPaper cx, SCREEN_WIDTH, SCREEN_HEIGHT, 40, 20
+	Window3D MOVABLE, word[PositionX], word[PositionY], word[W_Width], word[W_Height]
 	
 	
 jmp END
@@ -52,9 +64,7 @@ CnfigStack:
 	mov sp, 03FEh
 ret
 
-END:
-	mov ah, 00h
-	int 16h
+END: 
 	mov ax, 0040h
 	mov ds, ax
 	mov ax, 1234h
