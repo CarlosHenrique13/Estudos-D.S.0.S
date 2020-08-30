@@ -1,3 +1,4 @@
+%INCLUDE "Hardware/memory.lib"
 [BITS 16]
 [ORG 7C00H]
 

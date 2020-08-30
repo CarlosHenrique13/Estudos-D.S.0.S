@@ -1,5 +1,6 @@
+%INCLUDE "Hardware/memory.lib"
 [BITS 16]
-[ORG 0D00h]
+[ORG 0F00h]
 
 
 
@@ -11,19 +12,19 @@ popa
 ; =====================================
 ; Inclusion Files
 
-%INCLUDE "Hardware/wmemory.lib"
+%INCLUDE "Hardware/win16.lib"
 
-; =====================================	
+; =====================================
 	
 DefineWindow:
 	mov ah, 0Ch
-	mov al, byte[Window_Border_Color] 
+	mov al, byte[Window_Border_Color]
 	mov cx, word[Window_PositionX]
 	mov dx, word[Window_PositionY]
 	cmp byte[Window_Bar], 0
 	je WindowNoBar
-	jmp WindowsWithBar
-
+	jmp WindowWithBar
+	
 WindowNoBar:
 	mov bx, word[Window_Width]
 	add bx, cx
@@ -33,7 +34,7 @@ WindowNoBar:
 		inc cx
 		cmp cx, bx
 		jne LineUp
-		call BordeRightDown
+		call BorderRightDown
 		mov bx, word[Window_PositionY]
 		call BorderLeft
 	LineLeft:
@@ -44,27 +45,27 @@ WindowNoBar:
 		call BackColor
 		jmp Return
 		
-WindowsWithBar:
+WindowWithBar:
 	mov al, byte[Window_Bar_Color]
 	mov bx, word[Window_Width]
-	add bx, cx 
+	add bx, cx
 	push ax
 	mov ax, dx
 	add ax, 9
 	mov [StateWindowBar], ax
 	pop ax
-	PrintBar:
+	PaintBar:
 		int 10h
 		inc cx
 		cmp cx, bx
-		jne PrintBar
+		jne PaintBar
 		int 10h
 		inc dx
 		inc al
 		cmp dx, word[StateWindowBar]
 		jne BackColumn
 		mov al, byte[Window_Border_Color]
-		call BordeRightDown
+		call BorderRightDown
 		mov bx, word[Window_PositionY]
 		add bx, 8
 		call BorderLeft
@@ -74,7 +75,7 @@ WindowsWithBar:
 			cmp dx, bx
 			jne LineLeftBar
 			call BackColor
-			call ButtonBar
+			call ButtonsBar
 			jmp Return
 	BackColumn:
 		mov cx, word[Window_PositionX]
@@ -86,29 +87,29 @@ WindowsWithBar:
 		cmp dx, bx
 		ja IncColorAgain
 		pop bx
-		jmp PrintBar
+		jmp PaintBar
 	IncColorAgain:
 		pop bx
 		inc al
-		jmp PrintBar
+		jmp PaintBar
 	
-BordeRightDown:
-	mov bx, word[Window_Height]
-	add bx, dx
-	call BorderRight
+BorderRightDown:
+		mov bx, word[Window_Height]
+		add bx, dx
+		call BorderRight
 	LineRight:
 		int 10h
 		inc dx
 		cmp dx, bx
 		jne LineRight
-		mov bx, word [Window_PositionX]
+		mov bx, word[Window_PositionX]
 		call BorderDown
 	LineDown:
 		int 10h
 		dec cx
 		cmp cx, bx
 		jne LineDown
-ret	
+ret
 
 BorderUp:
 	cmp byte[Window_Border], 1
@@ -135,7 +136,7 @@ BorderLeft:
 ret
 
 BackColor:
-	mov al, byte[Window_back_Color]
+	mov al, byte[Window_Back_Color]
 	mov cx, word[Window_PositionX]
 	mov dx, word[Window_PositionY]
 	cmp byte[Window_Bar], 1
@@ -150,7 +151,7 @@ NoBar:
 	inc dx
 	mov word[BackInitialPositionY], dx
 Salt:
-	inc cx 
+	inc cx
 	mov word[BackInitialPositionX], cx
 Initial:
 	mov cx, word[BackInitialPositionX]
@@ -171,23 +172,23 @@ Rows:
 	jne Initial
 ret
 	
-ButtonBar:
-	mov bx, word[Window_PositionX]
-	mov word[SavePositionX], bx
-	mov bx, word[Window_PositionY]
-	mov word[SavePositionY], bx 
-	mov bx, word[Window_Width]
-	mov word[SaveWidth], bx
-	mov bx, word[Window_Height]
-	mov word[SaveHeight], bx
+ButtonsBar:
+   mov bx, word[Window_PositionX]
+   mov word[SavePositionX], bx
+   mov bx, word[Window_PositionY]
+   mov word[SavePositionY], bx
+   mov bx, word[Window_Width]
+   mov word[SaveWidth], bx
+   mov bx, word[Window_Height]
+   mov word[SaveHeight], bx
 Button0:
-	cmp byte[ButonClose], 1
+	cmp byte[ButtonClose], 1
 	je Close
 Button1:
-	cmp byte[ButonMaximize], 1
-	je Maximize	
+	cmp byte[ButtonMaximize], 1
+	je Maximize
 Button2:
-	cmp byte[ButonMinimize], 1
+	cmp byte[ButtonMinimize], 1
 	je Minimize
 	jmp Return
 Close:
@@ -222,9 +223,9 @@ Maximize:
 	sub cx, 2
 	sub dx, 2
 	int 10h
-	dec cx 
+	dec cx
 	int 10h
-	dec cx 
+	dec cx
 	int 10h
 	dec dx
 	int 10h
@@ -232,7 +233,7 @@ Maximize:
 	int 10h
 	inc cx
 	int 10h
-	inc cx 
+	inc cx
 	int 10h
 	inc dx
 	int 10h
@@ -251,14 +252,15 @@ Minimize:
 	int 10h
 	dec cx
 	int 10h
-	jmp Return
-	
+    jmp Return
+
 	
 ButtonProperty:
 	mov byte[Window_Bar], 0
 	mov byte[Window_Border_Color], al
-	mov byte[Window_back_Color], al
-	mov ax, word[SavePositionX ]
+	mov byte[Window_Back_Color], al
+	mov byte[Window_Border], 0
+	mov ax, word[SavePositionX]
 	mov cx, word[SaveWidth]
 	add ax, cx
 	sub ax, dx
@@ -269,7 +271,7 @@ ButtonProperty:
 	mov word[Window_Width], 6
 	mov word[Window_Height], 6
 ret
-
-
+	
+	
 Return:
 	ret
