@@ -1,0 +1,28 @@
+; ===============================================
+; KiddieOS - IO Devices Routines 
+; Created by Carlos
+; Version 1.1.0
+; ===============================================
+
+%IFNDEF _IODEVICE_LIB
+%DEFINE _IODEVICE_LIB
+
+%DEFINE ack 0xFA
+%DEFINE RESEND 0xFE
+
+%MACRO _ReadPort 1
+	xor dx, dx
+	xor ax, ax
+	mov dx, %1
+	int al, dx
+	
+%ENDMACRO
+
+%MACRO _WritePort 2
+	xor dx, dx
+	mov dx, %1
+	mov al, %2
+	out dx, al
+%ENDMACRO
+
+%ENDIF
