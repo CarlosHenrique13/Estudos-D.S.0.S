@@ -12,7 +12,10 @@
 ; Memory Window Configurations ____________________
 ; _________________________________________________
 
-
+%DEFINE SYSTEM 16
+%DEFINE BOOTLOADER 0x7C00
+%DEFINE KERNEL 0x0000
+%DEFINE WINDOWS 0x0F00
 
 ; _________________________________________________
 

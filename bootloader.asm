@@ -1,6 +1,6 @@
 %INCLUDE "Hardware/memory.lib"
-[BITS 16]
-[ORG 7C00H]
+[BITS SYSTEM]
+[ORG BOOTLOADER]
 
 call LoadSystem
 jmp 0800h:0000h
