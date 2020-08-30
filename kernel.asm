@@ -27,17 +27,10 @@ OSMain:
 	call DrawBackground
 	call EffectInit
 	;call DriversInstall ;alt
-	;jmp GraficInterface
-	jmp WaitPress
+	jmp GraficInterface
+
 	
-WaitPress:
-	in al, 0x64
-	and al, 0x01
-	jz WaitPress
-	in al, 0x60
-	mov ah, 0x0E
-	int 0x10
-	jmp WaitPress
+	
 
 ; _____________________________________________
 	
