@@ -19,10 +19,10 @@ Keyboard_Initialize:
 		cmp bl, '$'
 		je EndInitialize
 	WriteCommand:
-		_WritePort KEYBOARD_STATUS, bl 
+		__WritePort KEYBOARD_STATUS, bl 
 		inc cx 
 	waitResponse:
-		_ReadPort KEYBOARD_DATA
+		__ReadPort KEYBOARD_DATA
 		cmp cx, 3
 		je WriteNext
 		cmp al, RESEND
