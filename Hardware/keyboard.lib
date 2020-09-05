@@ -23,7 +23,7 @@
 	call ReadDisk
 %ENDMACRO 
 
-DriverCommands 0xF4, 0xED, '$'
+DriverCommands 0xF4, 0xED, 'S'
 
 
 %ENDIF
