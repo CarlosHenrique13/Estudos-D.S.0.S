@@ -11,8 +11,7 @@ jmp OSMain
 %INCLUDE "Hardware/disk.lib"
 %INCLUDE "Hardware/win16.lib"
 %INCLUDE "Hardware/win3dmov.lib"
-;%INCLUDE "Hardware/keyboard.lib"
-;%INCLUDE "Hardware/fontswriter.lib"
+%INCLUDE "Hardware/keyboard.lib"
 
 ; _____________________________________________
 

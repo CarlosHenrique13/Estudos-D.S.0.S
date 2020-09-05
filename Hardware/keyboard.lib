@@ -1,0 +1,28 @@
+; ===============================================
+; KiddieOS - Keyboard Libary
+; Created by Carlos
+; Version 1.0.0
+; ===============================================
+
+%IFNDEF _KEYBOARD_LIB
+%DEFINE _KEYBOARD_LIB
+
+%DEFINE KEYBOARD_INSTALL 0x1400
+%DEFINE KEYBOARD_HANDLER 0x1402
+
+%DEFINE KEYBOARD_SECTOR 10
+%DEFINE KEYBOARD_STATUS 0x64
+%DEFINE KEYBOARD_DATA   0x60
+
+%MACRO __Keyboard_Drive_Load 2
+	mov byte[Sector], WIN_SECTOR
+	mov byte[Drive], KEYBOARD_SECTOR
+	mov byte[NumSectors], 1
+	mov word[SegmentAddr], WIN_SEGMENT
+	mov word[OffsetAddr], WIN_OFFSET
+	call ReadDisk
+%ENDMACRO 
+
+DriverCommands 0xF4,0xED, '$'
+
+%ENDIF
