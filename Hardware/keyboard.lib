@@ -15,14 +15,14 @@
 %DEFINE KEYBOARD_DATA   0x60
 
 %MACRO __Keyboard_Drive_Load 2
-	mov byte[Sector], WIN_SECTOR
-	mov byte[Drive], KEYBOARD_SECTOR
+	mov byte[Sector], KEYBOARD_SECTOR
+	mov byte[Drive], 80h
 	mov byte[NumSectors], 1
-	mov word[SegmentAddr], WIN_SEGMENT
-	mov word[OffsetAddr], WIN_OFFSET
+	mov word[SegmentAddr], %1
+	mov word[OffsetAddr], %2
 	call ReadDisk
 %ENDMACRO 
 
-DriverCommands 0xF4,0xED, '$'
+DriverCommands 0xF4, 0xED, '$'
 
 %ENDIF

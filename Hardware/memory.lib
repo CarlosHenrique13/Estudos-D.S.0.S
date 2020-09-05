@@ -16,7 +16,7 @@
 %DEFINE BOOTLOADER 0x7C00
 %DEFINE KERNEL 0x0000
 %DEFINE WINDOWS 0x0F00
-
+%DEFINE KEYBOARD 0x1400
 ; _________________________________________________
 
 

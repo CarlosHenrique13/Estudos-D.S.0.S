@@ -25,9 +25,9 @@ OSMain:
 	call VGA.SetVideoMode
 	call DrawBackground
 	call EffectInit
-	;call DriversInstall ;alt
-	jmp GraficInterface
-
+	call DriversInstall ;alt
+	;jmp GraficInterface
+	jmp SystemKernel
 	
 	
 
@@ -36,15 +36,15 @@ OSMain:
 ; _____________________________________________
 ; Kernel Functions ____________________________
 
-;SystemKernel: ;alt
-;	call KEYBOARD_HANDLER
-;jmp SystemKernel
+SystemKernel: ;alt
+	call KEYBOARD_HANDLER
+jmp SystemKernel
 
-;DriversInstall:
-;	__Keyboard_Driver_Load 0x0800, 0x1400
-;	call KEYBOARD_INSTALL
+DriversInstall:
+	__Keyboard_Drive_Load 0x0800, 0x1400
+	call KEYBOARD_INSTALL
 ;	__Fonts_Writer_Load 0x0800, 0x1600
-;ret
+ret
 
 GraficInterface:
 	__LoadInterface
