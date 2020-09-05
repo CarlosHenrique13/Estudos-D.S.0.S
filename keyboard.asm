@@ -28,13 +28,7 @@ Keyboard_Initialize:
 		cmp al, RESEND
 		je WriteCommand
 		cmp al, ACK
-		je Success
-		
-Success:
-	mov ah, 0eh
-	mov al, 'd'
-	int 10h
-	jmp WriteNext
+		je WriteNext
 EndInitialize:
 	ret
 
