@@ -10,15 +10,15 @@
 %DEFINE ACK 0xFA
 %DEFINE RESEND 0xFE
 
-%MACRO __ReadPort 1
+%MACRO _ReadPort 1
 	xor dx, dx
 	xor ax, ax
 	mov dx, %1
-	int al, dx
+	in al, dx
 	
 %ENDMACRO
 
-%MACRO __WritePort 2
+%MACRO _WritePort 2
 	xor dx, dx
 	mov dx, %1
 	mov al, %2
