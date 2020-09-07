@@ -3,15 +3,18 @@ cls
 
 setlocal enabledelayedexpansion
 
-set QuantFile=4
+::Quantidade de Arquivos
+set QuantFile=4 
 
 set Drive=1
 
+::Variaveis com nomes dos arquivos
 set file1=bootloader
 set file2=kernel
 set file3=window
 set file4=keyboard
 
+::Diretoria da saida da montagem dos arquivos
 set filebin1=Binary\%file1%.bin
 set filebin2=Binary\%file2%.bin
 set filebin3=Binary\%file3%.bin
@@ -19,7 +22,7 @@ set filebin4=Driver\%file4%.sys
 
 set IMG=KiddieOS
 ::set Local=C:\Users\Henrique\Desktop\KiddieOS
-set LibFile=Hardware\memorys.lib
+set LibFile=Hardware\memory.lib
 set ImageFile=DiskImage\%IMG%.img
 
 

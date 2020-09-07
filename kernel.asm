@@ -43,7 +43,7 @@ SystemKernel: ;alt
 jmp SystemKernel
 
 DriversInstall:
-	__Keyboard_Drive_Load 0x0800, 0x1400
+	__Keyboard_Drive_Load 0x0800, KEYBOARD
 	call KEYBOARD_INSTALL
 ;	__Fonts_Writer_Load 0x0800, 0x1600
 ret
@@ -66,14 +66,17 @@ je Start
 jmp END
 
 ConfigSegment:
+	cld
 	mov ax, es
 	mov ds, ax
 ret
 
 ConfigStack:
+	cli
 	mov ax, 7D00h
 	mov ss, ax
 	mov sp, 3000h
+	sti
 ret
 
 END:
