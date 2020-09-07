@@ -41,15 +41,32 @@ VerifyKeys:
 	cmp al, BEGIN_CHAR
 	jnb Final
 Final:
+	mov ah, 0Eh
+	int 10h
 	jmp Return
 TillPress:
 	cmp WORD[CountKey], 200
 	je WaitTime
 	inc WORD[CountKey]
 	jmp Return
-
+WaitTime:
+	cal DelayPress
+	jmp VerifyKeys
 Return:
+	call DelayIntervals
 	ret
 
+DelayPress:
+	mov ah, 86h
+	mov cx, 0000h
+	mov dx, 0C350h ;50 milisegundo (50000)
+	int 15h
+ret
 
+DelayIntervals:
+mov ah, 86h
+	mov cx, 0000h
+	mov dx, 1388h ;5 milisegundo (5000)
+	int 15h
+ret 
 
