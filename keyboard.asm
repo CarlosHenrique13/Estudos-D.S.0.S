@@ -33,7 +33,8 @@ EndInitialize:
 	ret
 
 Keyboard_Handler_Main:
-
+	_ReadPort KEYBOARD_DATA
+	cmp al, [KEYCODE]
 ret
 
 

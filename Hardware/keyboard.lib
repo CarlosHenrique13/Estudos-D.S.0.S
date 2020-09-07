@@ -14,6 +14,10 @@
 %DEFINE KEYBOARD_STATUS 0x64
 %DEFINE KEYBOARD_DATA   0x60
 
+%DEFINE KEYCODE 	3017h
+%DEFINE BEGIN_CHAR  1
+%DEFINE FINAL_CHAR  58
+
 %MACRO __Keyboard_Drive_Load 2
 	mov byte[Sector], KEYBOARD_SECTOR
 	mov byte[Drive], 80h
@@ -24,6 +28,6 @@
 %ENDMACRO 
 
 DriverCommands db 0xF4, 0xED, '$'
-
+CountKey	   dw 0000h
 
 %ENDIF
