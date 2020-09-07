@@ -38,6 +38,8 @@ OSMain:
 
 SystemKernel: ;alt
 	call KEYBOARD_HANDLER
+	cmp al,  0x3B
+	je END
 jmp SystemKernel
 
 DriversInstall:

@@ -40,17 +40,23 @@ VerifyKeys:
 	mov byte[KEYCODE], al
 	cmp al, BEGIN_CHAR
 	jnb Final
+	jmp Return
 Final:
+	cmp al, FINAL_CHAR
+	jnbe Return
 	mov ah, 0Eh
 	int 10h
 	jmp Return
 TillPress:
 	cmp WORD[CountKey], 200
 	je WaitTime
+	cmp WORD[CountKey], 210
+	je VerifyKeys
 	inc WORD[CountKey]
 	jmp Return
 WaitTime:
-	cal DelayPress
+	mov WORD[CountKey], 210
+	call DelayPress
 	jmp VerifyKeys
 Return:
 	call DelayIntervals
