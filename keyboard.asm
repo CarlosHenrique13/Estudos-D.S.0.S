@@ -8,7 +8,6 @@ jmp Keyboard_Handler_Main
 %INCLUDE "Hardware/keyboard.lib"
 %INCLUDE "Hardware/iodevice.lib"
 
-
 Keyboard_Initialize:
 	mov si, DriverCommands
 	dec si
@@ -35,7 +34,22 @@ EndInitialize:
 Keyboard_Handler_Main:
 	_ReadPort KEYBOARD_DATA
 	cmp al, [KEYCODE]
-ret
+	je TillPress
+	mov word[CountKey], 0000h
+VerifyKeys:
+	mov byte[KEYCODE], al
+	cmp al, BEGIN_CHAR
+	jnb Final
+Final:
+	jmp Return
+TillPress:
+	cmp WORD[CountKey], 200
+	je WaitTime
+	inc WORD[CountKey]
+	jmp Return
+
+Return:
+	ret
 
 
 
