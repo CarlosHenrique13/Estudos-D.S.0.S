@@ -5,7 +5,7 @@ setlocal enabledelayedexpansion
 
 set QuantFile=4
 
-set Drive=6
+set Drive=1
 
 set file1=bootloader
 set file2=kernel
@@ -18,7 +18,7 @@ set filebin3=Binary\%file3%.bin
 set filebin4=Driver\%file4%.sys
 
 set IMG=KiddieOS
-set Local=C:\Users\BFTC\Desktop\KiddieOS
+::set Local=C:\Users\Henrique\Desktop\KiddieOS
 set LibFile=Hardware\memorys.lib
 set ImageFile=DiskImage\%IMG%.img
 
