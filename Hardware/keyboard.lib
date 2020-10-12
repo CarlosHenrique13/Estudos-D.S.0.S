@@ -109,12 +109,12 @@
 
 ; _________________________________________
 
-%MACRO __Keyboard_Drive_Load 2
+%MACRO __Keyboard_Drive_Load 0
 	mov byte[Sector], KEYBOARD_SECTOR
 	mov byte[Drive], 80h
 	mov byte[NumSectors], KEYBOARD_NUM_SECTORS
-	mov word[SegmentAddr], %1
-	mov word[OffsetAddr], %2
+	mov word[SegmentAddr], 0x800
+	mov word[OffsetAddr], KEYBOARD
 	call ReadDisk
 %ENDMACRO 
 

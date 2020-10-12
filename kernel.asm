@@ -44,9 +44,9 @@ SystemKernel: ;alt
 jmp SystemKernel
 
 DriversInstall:
-	__Keyboard_Drive_Load 0x0800, KEYBOARD
+	__Keyboard_Drive_Load 
 	call KEYBOARD_INSTALL
-;	__Fonts_Writer_Load 0x0800, 0x1600
+	__Fonts_Writer_Load 
 ret
 
 GraficInterface:
