@@ -55,7 +55,16 @@ Erase:
 	jmp Return
 	
 ChangeCursor:
-
+	;call CURSO_HANDLER
+	cmp byte[CursoFocus], 1
+	je Change
+	mov byte[CursoFocus], 1
+	jmp Return
+Change:
+	mov byte[CursoFocus], 0
+	jmp Return
+	
+	
 Return:
 	ret
 	
