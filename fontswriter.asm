@@ -113,6 +113,21 @@ ProcPositions:
 	mov byte[CursorTab], 1
 	jmp Return
 	
+PrintChar:
+	push ax
+	call CURSO_HANDLER
+	mov cx, word[POSITION_X]
+	mov dx, word[POSITION_Y]
+	call VerifyLimitColw
+	cmp bytr[StatusLimitW], 1
+	je RetPrintChar
+	
+	; próxim código
+
+RetPrintChar:
+	ret	
+	
+VerifyLimitColw:
 	
 Return:
 	ret
