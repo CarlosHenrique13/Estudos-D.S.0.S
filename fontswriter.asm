@@ -12,6 +12,14 @@ jmp Return
 %INCLUDE "Hardware\fonts.lib"
 
 ProcChars:
+	cmp al, K_TAB
+	je TextPositions
+	cmp al, K_ESC
+	je ChangeCursor
+	cmp byte[CursoFocus], 1
+	jne Return
+	cmp byte[CursorTab], 1
+	jne Return
 	xor ah, ah
 	xor dx, dx
 	push ax
@@ -28,7 +36,11 @@ ProcChars:
 	cmp al, K_BACKSPACE
 	je Erase
 show:
-
+	call PrintChar
+	jmp Return
+Erase:
+	calll EraseChar
+	jmp Return
 Return:
 	ret
 	
