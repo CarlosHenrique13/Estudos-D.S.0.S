@@ -20,6 +20,16 @@ ProcChars:
 	jne Return
 	cmp byte[CursorTab], 1
 	jne Return
+	cmp al, K_ENTER
+	je Return
+	cmp al, K_CTRLLEFT
+	je Return
+	cmp al, K_SHIFTLEFT
+	je Return
+	cmp al, K_ALT
+	je Return
+	cmp al, CAPSLOCK
+	je Return
 	xor ah, ah
 	xor dx, dx
 	push ax
