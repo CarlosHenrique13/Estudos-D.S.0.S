@@ -118,7 +118,7 @@ PrintChar:
 	call CURSO_HANDLER
 	mov cx, word[POSITION_X]
 	mov dx, word[POSITION_Y]
-	call VerifyLimitColw
+	call VerifyLimitColW
 	cmp bytr[StatusLimitW], 1
 	je RetPrintChar
 	
@@ -126,11 +126,24 @@ PrintChar:
 
 RetPrintChar:
 	ret	
+
+EraseChar:
+	;call CURSO_HANDLER
+	mov cx, word[POSITION_X]
+	mov dx, word[POSITION_Y]
+	call VerifyLimitColX
+	cmp byte[StatusLimitX], 1
+	je RetEraseChar
 	
-VerifyLimitColw:
+	; próximo cvódigo
+	
+RetEraseChar:
+	ret
+		
+VerifyLimitColW:
 	cmp cx, word[LIMIT_COLW]
 	jb RetVerifyW
-
+	mov byte[StatusLimitW], 1
 RetVerifyW:
 	mov byte[StatusLimitW], 0
 ret
