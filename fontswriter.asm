@@ -79,7 +79,10 @@ TextPositions:
 	mov byte[QuantTab], 1
 	mov byte[CountField], -1
 ProcPositions:
-	
+	xor ax, ax
+	xor bx, bx
+	mov bx, word[QuantPos]
+	mov ax, word[POSITIONS + bx] ; array[3]
 	
 Return:
 	ret
