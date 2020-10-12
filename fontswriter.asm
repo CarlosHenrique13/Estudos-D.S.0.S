@@ -64,6 +64,22 @@ Change:
 	mov byte[CursoFocus], 0
 	jmp Return
 	
+TextPositions:
+	cmp byte[Window_Exist], 1
+	jne Return
+	cmp byte[Field_Exist], 1
+	jne Return
+	;call CURSO_HANDLER
+	inc byte[QuantTab]
+	mov bl, byte[QuantTab]
+	mov al, byte[QUANT_FIELD]
+	cmp bl, al
+	jbe  ProcPositions
+	mov word[QuantPos], 0000h
+	mov byte[QuantTab], 1
+	mov byte[CountField], -1
+ProcPositions:
+	
 	
 Return:
 	ret
