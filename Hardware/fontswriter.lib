@@ -42,6 +42,5 @@
 	mov bx %1
 	cmp al, FINAL_CHAR
 	jbe FONTSWRITER
-	
 %ENDMACRO
 
