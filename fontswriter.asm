@@ -93,6 +93,19 @@ ProcPositions:
 	mov bx, word[QuantPos]
 	mov ax, word [POSITIONS + bx]
 	mov word[LIMIT_COLW], ax
+	add word[QuantPos], 2
+	mov bx, word[QuantPos]
+	mov ax, word[POSITIONS + bx]
+	mov word[LIMIT_COLX], ax
+	add word[QuantPos], 2
+	mov bx, word[QuantPos]
+	mov di, word[POSITIONS + bx]
+	mov ax, word[ds:di]
+	mov word[QUANT_KEY], ax
+	add word[QuantPos], 2
+	mov bx, word[QuantPos]
+	mov ax, word[POSITIONS + bx]
+	mov word[C_ADDR], ax
 	
 Return:
 	ret
