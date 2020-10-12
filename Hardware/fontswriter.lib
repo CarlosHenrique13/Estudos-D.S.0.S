@@ -3,3 +3,19 @@
 ; Created by Carlos
 ; Version 1.0.0
 ; ===============================================
+
+%DEFINE FONT_SIZE 	5
+%DEFINE KEY 		1
+%DEFINE CHAR 		0
+
+%DEFINE STATUS		3018h
+%DEFINE Position_X	3019h
+%DEFINE Position_Y  301Bh
+%DEFINE QUANT_FIELD	301Dh
+%DEFINE LIMIT_COLW  301Fh
+%DEFINE LIMIT_COLX  3021h
+%DEFINE BS_COLOR	3023h
+%DEFINE CursorFocus 3024h
+%DEFINE CursorTab	3025h
+%DEFINE QuantPos	3026h
+%DEFINE QuantTab	3028h
