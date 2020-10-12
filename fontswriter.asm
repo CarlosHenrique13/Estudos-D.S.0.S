@@ -106,6 +106,13 @@ ProcPositions:
 	mov bx, word[QuantPos]
 	mov ax, word[POSITIONS + bx]
 	mov word[C_ADDR], ax
+	add word[QuantPos], 2
+	inc byte[CountField]
+	xor ax, ax
+	xor bx, bx
+	mov byte[CursorTab], 1
+	jmp Return
+	
 	
 Return:
 	ret
