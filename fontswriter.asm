@@ -12,7 +12,22 @@ jmp Return
 %INCLUDE "Hardware\fonts.lib"
 
 ProcChars:
-
+	xor ah, ah
+	xor dx, dx
+	push ax
+	mov si, Chars
+	xor bx, bx
+	mov bx, 26 ;bytes da font (5 x 5) + 1 bite de finalização  
+	mul bx 
+	sub ax, bx
+	add si, ax
+	xor bx, bx
+	xor ax, ax
+	mov bl, [si]
+	pop ax 
+	cmp al, K_BACKSPACE
+	je Erase
+show:
 
 Return:
 	ret
