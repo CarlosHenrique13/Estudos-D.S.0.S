@@ -147,6 +147,15 @@ VerifyLimitColW:
 RetVerifyW:
 	mov byte[StatusLimitW], 0
 ret
+
+VerifyLimitColX:
+	cmp cx, word[LIMIT_COLX]
+	ja RetVerifyX
+	mov byte[StatusLimitX], 1
+RetVerifyX:
+	mov byte[StatusLimitX], 0
+ret
+
 Return:
 	ret
 	
