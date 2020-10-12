@@ -4,7 +4,7 @@ cls
 setlocal enabledelayedexpansion
 
 ::Quantidade de Arquivos
-set QuantFile=4 
+set QuantFile=5 
 
 set Drive=1
 
@@ -13,6 +13,7 @@ set file1=bootloader
 set file2=kernel
 set file3=window
 set file4=keyboard
+set file5=fontswriter
 ::set file5=fontwriter
 
 ::Diretoria da saida da montagem dos arquivos
@@ -20,6 +21,7 @@ set filebin1=Binary\%file1%.bin
 set filebin2=Binary\%file2%.bin
 set filebin3=Binary\%file3%.bin
 set filebin4=Driver\%file4%.sys
+set filebin5=Binary\%file5%.bin
 ::set filebin5=Binary\%file5%.bin
 
 set IMG=KiddieOS
