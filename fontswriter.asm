@@ -26,6 +26,8 @@ ProcChars:
 	je Return
 	cmp al, K_SHIFTLEFT
 	je Return
+	cmp al, K_SHIFTRIGHT
+	je Return
 	cmp al, K_ALT
 	je Return
 	cmp al, CAPSLOCK
@@ -51,6 +53,9 @@ show:
 Erase:
 	calll EraseChar
 	jmp Return
+	
+ChangeCursor:
+
 Return:
 	ret
 	
