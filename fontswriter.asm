@@ -82,7 +82,17 @@ ProcPositions:
 	xor ax, ax
 	xor bx, bx
 	mov bx, word[QuantPos]
-	mov ax, word[POSITIONS + bx] ; array[3]
+	mov ax, word[POSITIONS + bx] ; array[]
+	mov word[POSITION_X], ax
+	add word[QuantPos], 2
+	mov bx, word[QuantPos]
+	mov ax, word[POSITIONS + bx]
+	add ax, 2
+	mov word[POSITION_Y], ax
+	add word[QuantPos], 2
+	mov bx, word[QuantPos]
+	mov ax, word [POSITIONS + bx]
+	mov word[LIMIT_COLW], ax
 	
 Return:
 	ret
