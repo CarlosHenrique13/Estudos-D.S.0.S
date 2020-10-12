@@ -128,7 +128,12 @@ RetPrintChar:
 	ret	
 	
 VerifyLimitColw:
-	
+	cmp cx, word[LIMIT_COLW]
+	jb RetVerifyW
+
+RetVerifyW:
+	mov byte[StatusLimitW], 0
+ret
 Return:
 	ret
 	
